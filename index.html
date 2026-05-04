@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>aimilabs — Built for what's next</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #0100fe;
+    --blue-deep: #0a17e0;
+    --black: #000000;
+    --white: #ffffff;
+    --grey: #ececec;
+    --grey-2: #f4f4f4;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--black);
+    color: var(--white);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    background: var(--blue);
+    min-height: 100vh;
+    padding: 28px 32px 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .logo-top {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: -0.5px;
+    color: var(--white);
+    z-index: 5;
+  }
+  .hero-stage {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-top: 24px;
+  }
+  .hero-art {
+    width: min(560px, 90vw);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-art img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Navigation */
+  .nav {
+    position: absolute;
+    bottom: 36px;
+    left: 32px;
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+    gap: 8px 8px;
+    z-index: 5;
+  }
+  .nav a {
+    padding: 8px 18px;
+    border-radius: 999px;
+    background: rgba(0,0,0,0.65);
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: all 0.2s ease;
+  }
+  .nav a:hover { background: var(--white); color: var(--black); }
+
+  /* ===== Section base ===== */
+  section { padding: 80px 32px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  .tag {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 999px;
+    border: 1px solid currentColor;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    margin-bottom: 40px;
+  }
+
+  /* ===== ABOUT ===== */
+  .about {
+    background: var(--black);
+    color: var(--white);
+  }
+  .about .tag { color: #ff5b3d; }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .about h2, .about p { font-size: 19px; line-height: 1.45; font-weight: 500; }
+  .about p + p { margin-top: 18px; }
+  .about-img {
+    aspect-ratio: 1/1;
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--blue);
+  }
+  .about-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .about-row {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 60px;
+    align-items: center;
+    margin-top: 80px;
+  }
+
+  .obsolete {
+    text-align: center;
+    margin-top: 100px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(36px, 7vw, 88px);
+    line-height: 1;
+    letter-spacing: -2px;
+  }
+  .obsolete .smile {
+    display: inline-block;
+    width: 0.95em;
+    height: 0.95em;
+    vertical-align: -0.15em;
+    margin: 0 0.04em;
+    background: url('images/img-005.jpg') center/contain no-repeat;
+    border-radius: 50%;
+  }
+
+  /* ===== FUSE MODEL ===== */
+  .fuse {
+    background: var(--blue);
+    color: var(--white);
+    padding: 90px 32px;
+  }
+  .fuse .tag { color: var(--white); }
+  .fuse h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(40px, 6vw, 72px);
+    font-weight: 700;
+    letter-spacing: -2px;
+    line-height: 1;
+    margin-bottom: 24px;
+  }
+  .fuse h2 sup { font-size: 0.3em; vertical-align: super; font-weight: 400; }
+  .fuse-lead {
+    font-size: 20px;
+    max-width: 640px;
+    line-height: 1.4;
+    margin-bottom: 60px;
+  }
+
+  .venn {
+    position: relative;
+    width: min(560px, 90vw);
+    aspect-ratio: 1/1;
+    margin: 60px auto 40px;
+  }
+  .venn-circle {
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    border: 1.5px dashed rgba(255,255,255,0.5);
+    border-radius: 50%;
+  }
+  .vc-1 { top: 0; left: 50%; transform: translateX(-50%); }
+  .vc-2 { top: 32%; left: 0; }
+  .vc-3 { top: 32%; right: 0; }
+  .vc-4 { bottom: 0; left: 50%; transform: translateX(-50%); }
+  .venn-glow {
+    position: absolute;
+    inset: 25%;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffb86b 0%, #ff5b3d 30%, transparent 70%);
+    filter: blur(30px);
+    opacity: 0.7;
+  }
+  .venn-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 2;
+  }
+  .venn-center .fuse-mark {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+  .venn-center .by {
+    font-size: 11px;
+    opacity: 0.85;
+    margin-top: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  .pills {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  .pill {
+    padding: 8px 22px;
+    border-radius: 999px;
+    background: var(--white);
+    color: var(--blue);
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .fuse-foot {
+    text-align: center;
+    font-size: 14px;
+    max-width: 520px;
+    margin: 0 auto;
+    opacity: 0.95;
+    line-height: 1.5;
+  }
+
+  /* ===== SYSTEMS ===== */
+  .systems {
+    background: var(--grey-2);
+    color: var(--black);
+    padding: 90px 32px;
+  }
+  .systems .tag { color: #ff5b3d; }
+  .systems h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 600;
+    letter-spacing: -1px;
+    margin-bottom: 40px;
+  }
+  .system-marks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px 56px;
+    margin-bottom: 60px;
+    align-items: baseline;
+  }
+  .system-marks .mk {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    background: linear-gradient(90deg, #ff5b3d, #1c2bff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .system-marks sup { font-size: 0.4em; vertical-align: super; font-weight: 400; }
+
+  .system-card {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 40px;
+    align-items: center;
+    padding-top: 30px;
+    border-top: 1px solid #d8d8d8;
+  }
+  .system-card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .system-card p {
+    font-size: 14px;
+    line-height: 1.55;
+    color: #444;
+    margin-bottom: 18px;
+  }
+  .system-card ul {
+    list-style: none;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .system-card ul li {
+    padding-left: 18px;
+    position: relative;
+    margin-bottom: 8px;
+  }
+  .system-card ul li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 4px;
+    width: 8px; height: 8px;
+    background: var(--black);
+    border-radius: 50%;
+  }
+  .system-visual {
+    aspect-ratio: 16/10;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.25);
+  }
+  .system-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ===== STUDIO ===== */
+  .studio {
+    background: var(--black);
+    color: var(--white);
+    padding: 90px 32px;
+  }
+  .studio .tag { color: #ff5b3d; }
+  .studio-lead {
+    font-size: clamp(20px, 2.4vw, 28px);
+    line-height: 1.4;
+    max-width: 760px;
+    font-weight: 500;
+    margin-bottom: 60px;
+  }
+  .case {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    background: #000;
+  }
+  .case-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  .case::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.6));
+    pointer-events: none;
+  }
+  .case-info {
+    position: absolute;
+    bottom: 24px;
+    left: 80px;
+    max-width: 320px;
+    z-index: 2;
+  }
+  .case-info h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .case-info p {
+    font-size: 13px;
+    opacity: 0.85;
+    line-height: 1.5;
+  }
+  .case-arrow {
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+    width: 36px; height: 36px;
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.4);
+    z-index: 2;
+  }
+  .case-nav {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    width: 36px; height: 36px;
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  /* ===== CLIENTS ===== */
+  .clients {
+    background: var(--white);
+    color: var(--black);
+    padding: 80px 32px;
+  }
+  .clients .tag { color: #ff5b3d; }
+  .clients-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-top: 30px;
+    opacity: 0.9;
+  }
+  .clients-row .logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    letter-spacing: -0.5px;
+  }
+  .vw-mark {
+    width: 56px; height: 56px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .vw-mark img { width: 100%; height: 100%; filter: invert(1); }
+  .bof-mark { font-size: 18px; }
+  .bof-mark .b { font-style: italic; font-family: Georgia, serif; font-size: 26px; }
+  .bof-mark .sub { font-size: 11px; letter-spacing: 1.5px; opacity: 0.7; display: block; margin-top: 2px; }
+
+  /* ===== CONTACT ===== */
+  .contact {
+    background: var(--blue);
+    color: var(--white);
+    padding: 80px 32px 0;
+  }
+  .contact .tag { color: var(--white); }
+  .contact-head {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 30px;
+    align-items: start;
+    padding-bottom: 80px;
+  }
+  .contact-head h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    line-height: 1;
+  }
+  .contact-block { font-size: 14px; line-height: 1.6; }
+  .contact-block .name { font-weight: 600; }
+  .contact-block a { display: block; opacity: 0.95; }
+  .contact-block a:hover { text-decoration: underline; }
+
+  .contact-mark {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+    padding-bottom: 40px;
+  }
+  .contact-mark .word {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(80px, 18vw, 220px);
+    letter-spacing: -8px;
+    line-height: 0.85;
+  }
+  .a-mark {
+    width: clamp(80px, 14vw, 160px);
+    aspect-ratio: 1/1;
+    background: #ff5b3d;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(56px, 10vw, 120px);
+    color: var(--white);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 820px) {
+    section { padding: 60px 22px; }
+    .hero { padding: 22px 22px 0; }
+    .nav { left: 22px; bottom: 22px; }
+    .about-grid, .about-row, .system-card, .contact-head {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .about-row { margin-top: 50px; }
+    .about-img { max-width: 320px; }
+    .obsolete { margin-top: 60px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="logo-top">aimilabs</div>
+
+  <div class="hero-stage">
+    <div class="hero-art">
+      <img src="images/img-002.jpg" alt="aimilabs" />
+    </div>
+  </div>
+
+  <nav class="nav">
+    <a href="#about">About</a>
+    <a href="#model">The Model</a>
+    <a href="#systems">Systems</a>
+    <a href="#studio">Studio</a>
+    <a href="#clients">Clients</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <span class="tag">About</span>
+
+    <div class="about-grid">
+      <div>
+        <p>We are an AI-native agency built like a technology company.</p>
+        <p>Uniting software, data, and creative into one intelligent system for modern growth.</p>
+        <p>For brands that need smarter marketing.<br/>For enterprises that need AI solutions built to perform.</p>
+      </div>
+      <div class="about-img"><img src="images/img-007.jpg" alt="Iridescent chess knight" /></div>
+    </div>
+
+    <div class="about-row">
+      <div class="about-img"><img src="images/img-006.jpg" alt="Hand holding a flask" /></div>
+      <div>
+        <p>A new model built for the AI era.<br/>Not a traditional agency.<br/>Not just a software company.</p>
+        <p>Built with the speed of a startup, the intelligence of a system, and the creative ambition of a modern agency.</p>
+        <p style="margin-top:32px">The traditional agency model sells hours, not outcomes.<br/>Templates, not truth.<br/>We are not here to improve that model.</p>
+      </div>
+    </div>
+
+    <h2 class="obsolete">
+      We are here<br/>
+      to make it obs<span class="smile" aria-hidden="true"></span>lete.
+    </h2>
+  </div>
+</section>
+
+<!-- FUSE MODEL -->
+<section class="fuse" id="model">
+  <div class="container">
+    <span class="tag">About</span>
+    <h2>The fuse<sup>™</sup> model</h2>
+    <p class="fuse-lead">A proprietary operating model that fuses strategy, creative, and code into scalable systems for growth.</p>
+
+    <div class="venn" aria-hidden="true">
+      <div class="venn-circle vc-1"></div>
+      <div class="venn-circle vc-2"></div>
+      <div class="venn-circle vc-3"></div>
+      <div class="venn-circle vc-4"></div>
+      <div class="venn-glow"></div>
+      <div class="venn-center">
+        <div class="fuse-mark">fuse</div>
+        <div class="by">by aimilabs</div>
+      </div>
+    </div>
+
+    <div class="pills">
+      <span class="pill">forge</span>
+      <span class="pill">unlock</span>
+      <span class="pill">shape</span>
+      <span class="pill">embed</span>
+    </div>
+
+    <p class="fuse-foot">We forge with intent. Combine strategy, creative, and code to create high-performing work fast, focused, and future-ready.</p>
+  </div>
+</section>
+
+<!-- SYSTEMS -->
+<section class="systems" id="systems">
+  <div class="container">
+    <span class="tag">Systems</span>
+    <h2>Our proprietary ai systems we built</h2>
+
+    <div class="system-marks">
+      <span class="mk">ai.mee<sup>™</sup></span>
+      <span class="mk">ai.m3<sup>™</sup></span>
+      <span class="mk">ai.view<sup>™</sup></span>
+      <span class="mk">rel.ai<sup>™</sup></span>
+    </div>
+
+    <div class="system-card">
+      <div>
+        <h3>AI Powered Marketing Engine</h3>
+        <p>The intelligence engine powering aimilabs. It doesn't just process data; it learns, adapts, and anticipates audience behavior in real time to create human-centered brand experiences at scale.</p>
+        <ul>
+          <li>NLP/ML CORE</li>
+          <li>HYPER-PERSONALIZATION</li>
+          <li>END-TO-END AUTOMATION</li>
+          <li>PREDICTIVE MODELING</li>
+        </ul>
+      </div>
+      <div class="system-visual"><img src="images/img-000.jpg" alt="AI Audience Identification dashboard" /></div>
+    </div>
+  </div>
+</section>
+
+<!-- STUDIO -->
+<section class="studio" id="studio">
+  <div class="container">
+    <span class="tag">Studio</span>
+    <p class="studio-lead">A curated repository of generative campaigns, AI-native videos, virtual influencers, and scalable content systems built for the world's leading brands.</p>
+
+    <div class="case">
+      <img class="case-bg" src="images/img-004.jpg" alt="Samsung Switch — man in front of refrigerator" />
+      <div class="case-arrow" aria-hidden="true">→</div>
+      <div class="case-info">
+        <h3>Samsung Switch</h3>
+        <p>A curated repository of generative campaigns, AI-native videos, virtual influencers, and scalable content systems built for the world's leading brands.</p>
+      </div>
+      <div class="case-nav" aria-hidden="true">→</div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<section class="clients" id="clients">
+  <div class="container">
+    <span class="tag">Clients</span>
+    <div class="clients-row">
+      <div class="vw-mark" aria-label="Volkswagen"><img src="images/img-008.png" alt="Volkswagen" /></div>
+      <div class="logo">SAMSUNG</div>
+      <div class="bof-mark"><span class="b">B</span>oF<span class="sub">TECH</span></div>
+      <div class="bof-mark"><span class="b">B</span>oF<span class="sub">INVESTMENTS</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <span class="tag">Contact</span>
+    <div class="contact-head">
+      <h2>Built for what's next.</h2>
+      <div class="contact-block">
+        <div class="name">Tyler Yeom</div>
+        <a href="mailto:tyler@aimilabs.com">tyler@aimilabs.com</a>
+        <a href="tel:+0775166 52971">+0775 166 52 971</a>
+      </div>
+      <div class="contact-block">
+        <a href="#">LinkedIn</a>
+        <a href="#">Instagram</a>
+        <a href="#">X</a>
+      </div>
+    </div>
+
+    <div class="contact-mark">
+      <div class="word">aimilabs</div>
+      <div class="a-mark">a</div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
