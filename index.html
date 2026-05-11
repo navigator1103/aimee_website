@@ -42,12 +42,14 @@
     position: absolute;
     top: 28px;
     left: 32px;
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700;
-    font-size: 22px;
-    letter-spacing: -0.5px;
-    color: var(--white);
     z-index: 5;
+    display: block;
+    line-height: 0;
+  }
+  .logo-top img {
+    height: 22px;
+    width: auto;
+    display: block;
   }
   .hero-stage {
     flex: 1;
@@ -725,26 +727,24 @@
     padding-bottom: 40px;
   }
   .contact-mark .word {
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700;
-    font-size: clamp(80px, 18vw, 220px);
-    letter-spacing: -8px;
-    line-height: 0.85;
+    line-height: 0;
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+  .contact-mark .word img {
+    height: clamp(40px, 8vw, 110px);
+    width: auto;
+    max-width: 100%;
+    display: block;
   }
   .a-mark {
-    width: clamp(80px, 14vw, 160px);
-    aspect-ratio: 1/1;
-    background: #ff5b3d;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700;
-    font-size: clamp(56px, 10vw, 120px);
-    color: var(--white);
-    line-height: 1;
+    line-height: 0;
     flex-shrink: 0;
+  }
+  .a-mark img {
+    height: clamp(32px, 5.5vw, 78px);
+    width: auto;
+    display: block;
   }
 
   /* Responsive */
@@ -776,7 +776,7 @@
 
 <!-- HERO -->
 <header class="hero">
-  <div class="logo-top">aimilabs</div>
+  <a href="#" class="logo-top" aria-label="aimilabs"><img src="images/aimilabs-wordmark-white.png" alt="aimilabs" /></a>
 
   <div class="hero-stage">
     <div class="hero-art">
@@ -1110,11 +1110,11 @@
         <a href="#">X</a>
       </div>
     </div>
+  </div>
 
-    <div class="contact-mark">
-      <div class="word">aimilabs</div>
-      <div class="a-mark">a</div>
-    </div>
+  <div class="contact-mark">
+    <div class="word"><img src="images/aimilabs-wordmark-white.png" alt="aimilabs" /></div>
+    <div class="a-mark" aria-hidden="true"><img src="images/aimilabs-a-mark.png" alt="" /></div>
   </div>
 </section>
 
