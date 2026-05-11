@@ -34,12 +34,14 @@
     position: relative;
     background: var(--blue);
     min-height: 100vh;
-    padding: 28px 32px 0;
     display: flex;
     flex-direction: column;
     overflow: hidden;
   }
   .logo-top {
+    position: absolute;
+    top: 28px;
+    left: 32px;
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 700;
     font-size: 22px;
@@ -53,18 +55,20 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    margin-top: 24px;
   }
   .hero-art {
-    width: min(560px, 90vw);
+    width: 100%;
+    height: 100%;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  .hero-art img {
+  .hero-art img,
+  .hero-art video {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
     display: block;
   }
 
@@ -125,7 +129,8 @@
     overflow: hidden;
     background: var(--blue);
   }
-  .about-img img {
+  .about-img img,
+  .about-img video {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -183,29 +188,61 @@
 
   .venn {
     position: relative;
-    width: min(560px, 90vw);
+    width: min(520px, 90vw);
     aspect-ratio: 1/1;
-    margin: 60px auto 40px;
+    margin: 40px auto 32px;
   }
   .venn-circle {
     position: absolute;
-    width: 60%;
-    height: 60%;
-    border: 1.5px dashed rgba(255,255,255,0.5);
+    width: 58%;
+    height: 58%;
+    border: 1.5px dashed rgba(255,255,255,0.55);
     border-radius: 50%;
+    transition: border-color 0.4s ease, transform 0.4s ease;
+  }
+  .venn-circle::after {
+    content: attr(data-label);
+    position: absolute;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: rgba(255,255,255,0.7);
+    text-transform: lowercase;
+    white-space: nowrap;
+    transition: color 0.3s ease;
   }
   .vc-1 { top: 0; left: 50%; transform: translateX(-50%); }
+  .vc-1::after { top: -6px; left: 50%; transform: translate(-50%, -100%); }
   .vc-2 { top: 32%; left: 0; }
+  .vc-2::after { left: -6px; top: 50%; transform: translate(-100%, -50%); }
   .vc-3 { top: 32%; right: 0; }
+  .vc-3::after { right: -6px; top: 50%; transform: translate(100%, -50%); }
   .vc-4 { bottom: 0; left: 50%; transform: translateX(-50%); }
+  .vc-4::after { bottom: -6px; left: 50%; transform: translate(-50%, 100%); }
+
+  .venn[data-active="forge"]  .vc-1,
+  .venn[data-active="unlock"] .vc-2,
+  .venn[data-active="shape"]  .vc-3,
+  .venn[data-active="embed"]  .vc-4 { border-color: rgba(255,255,255,1); }
+  .venn[data-active="forge"]  .vc-1::after,
+  .venn[data-active="unlock"] .vc-2::after,
+  .venn[data-active="shape"]  .vc-3::after,
+  .venn[data-active="embed"]  .vc-4::after { color: #fff; }
+
   .venn-glow {
     position: absolute;
-    inset: 25%;
+    inset: 28%;
     border-radius: 50%;
-    background: radial-gradient(circle, #ffb86b 0%, #ff5b3d 30%, transparent 70%);
-    filter: blur(30px);
-    opacity: 0.7;
+    background: radial-gradient(circle, #ffb86b 0%, #ff5b3d 35%, transparent 70%);
+    filter: blur(34px);
+    opacity: 0.75;
+    transition: transform 0.5s cubic-bezier(.4,0,.2,1), opacity 0.4s ease;
   }
+  .venn[data-active="forge"]  .venn-glow { transform: translate(0, -22%); }
+  .venn[data-active="unlock"] .venn-glow { transform: translate(-22%, 0); }
+  .venn[data-active="shape"]  .venn-glow { transform: translate(22%, 0); }
+  .venn[data-active="embed"]  .venn-glow { transform: translate(0, 22%); }
+
   .venn-center {
     position: absolute;
     top: 50%;
@@ -216,11 +253,28 @@
   }
   .venn-center .fuse-mark {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 48px;
+    font-size: clamp(40px, 7vw, 64px);
     font-weight: 700;
-    letter-spacing: -1px;
+    letter-spacing: -2px;
     line-height: 1;
   }
+  .venn-center .fuse-mark span {
+    display: inline-block;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+  .venn[data-active="forge"]  .fuse-mark .l-u,
+  .venn[data-active="forge"]  .fuse-mark .l-s,
+  .venn[data-active="forge"]  .fuse-mark .l-e { opacity: 0.25; }
+  .venn[data-active="unlock"] .fuse-mark .l-f,
+  .venn[data-active="unlock"] .fuse-mark .l-s,
+  .venn[data-active="unlock"] .fuse-mark .l-e { opacity: 0.25; }
+  .venn[data-active="shape"]  .fuse-mark .l-f,
+  .venn[data-active="shape"]  .fuse-mark .l-u,
+  .venn[data-active="shape"]  .fuse-mark .l-e { opacity: 0.25; }
+  .venn[data-active="embed"]  .fuse-mark .l-f,
+  .venn[data-active="embed"]  .fuse-mark .l-u,
+  .venn[data-active="embed"]  .fuse-mark .l-s { opacity: 0.25; }
+
   .venn-center .by {
     font-size: 11px;
     opacity: 0.85;
@@ -231,17 +285,28 @@
   .pills {
     display: flex;
     justify-content: center;
-    gap: 14px;
+    gap: 28px;
     flex-wrap: wrap;
     margin-bottom: 28px;
   }
   .pill {
-    padding: 8px 22px;
-    border-radius: 999px;
-    background: var(--white);
-    color: var(--blue);
-    font-size: 14px;
+    padding: 6px 4px;
+    background: transparent;
+    border: none;
+    color: var(--white);
+    font-family: inherit;
+    font-size: 15px;
     font-weight: 600;
+    letter-spacing: 0.2px;
+    cursor: pointer;
+    opacity: 0.65;
+    border-bottom: 2px solid transparent;
+    transition: opacity 0.25s ease, border-color 0.25s ease;
+  }
+  .pill:hover { opacity: 0.9; }
+  .pill.is-active {
+    opacity: 1;
+    border-bottom-color: var(--white);
   }
   .fuse-foot {
     text-align: center;
@@ -250,6 +315,8 @@
     margin: 0 auto;
     opacity: 0.95;
     line-height: 1.5;
+    min-height: 3em;
+    transition: opacity 0.25s ease;
   }
 
   /* ===== SYSTEMS ===== */
@@ -270,7 +337,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 32px 56px;
-    margin-bottom: 60px;
+    margin-bottom: 50px;
     align-items: baseline;
   }
   .system-marks .mk {
@@ -282,27 +349,57 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    font-family: inherit;
+    transition: opacity 0.25s ease, filter 0.25s ease;
+    opacity: 0.55;
+  }
+  .system-marks .mk:hover { opacity: 0.8; }
+  .system-marks .mk.is-active {
+    background: var(--blue);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    opacity: 1;
   }
   .system-marks sup { font-size: 0.4em; vertical-align: super; font-weight: 400; }
 
+  .system-stage {
+    position: relative;
+    padding-top: 30px;
+    border-top: 1px solid #d8d8d8;
+  }
   .system-card {
     display: grid;
     grid-template-columns: 1fr 1.2fr;
     gap: 40px;
     align-items: center;
-    padding-top: 30px;
-    border-top: 1px solid #d8d8d8;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease;
+    position: absolute;
+    inset: 30px 0 0 0;
+  }
+  .system-card.is-active {
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+    inset: auto;
   }
   .system-card h3 {
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 22px;
+    font-weight: 700;
     margin-bottom: 14px;
+    letter-spacing: -0.3px;
   }
   .system-card p {
     font-size: 14px;
     line-height: 1.55;
     color: #444;
     margin-bottom: 18px;
+    max-width: 380px;
   }
   .system-card ul {
     list-style: none;
@@ -325,15 +422,66 @@
   }
   .system-visual {
     aspect-ratio: 16/10;
-    border-radius: 10px;
+    border-radius: 14px;
     overflow: hidden;
     box-shadow: 0 30px 60px -20px rgba(0,0,0,0.25);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .system-visual img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
+  }
+  .system-visual.gradient-pink {
+    background: linear-gradient(135deg, #f8c8e8 0%, #d2b8ff 40%, #b6a0ff 100%);
+  }
+  .system-visual.gradient-mist {
+    background: linear-gradient(135deg, #eef2fb 0%, #d8def0 50%, #c9c1de 100%);
+  }
+  .system-visual.gradient-amber {
+    background: linear-gradient(135deg, #ffd7a8 0%, #ff9c7a 60%, #d96b7a 100%);
+  }
+  .system-visual .panel-mark {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+    color: rgba(255,255,255,0.95);
+    font-family: 'Space Grotesk', sans-serif;
+    pointer-events: none;
+  }
+  .system-visual .panel-mark .big {
+    font-size: clamp(22px, 2.5vw, 36px);
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    mix-blend-mode: overlay;
+    opacity: 0.85;
+  }
+  .system-visual .panel-mark .small {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    opacity: 0.8;
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+  .system-visual .panel-card {
+    position: absolute;
+    inset: 18% 14%;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.22);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.4);
+    pointer-events: none;
   }
 
   /* ===== STUDIO ===== */
@@ -350,12 +498,23 @@
     font-weight: 500;
     margin-bottom: 60px;
   }
-  .case {
+  .case-stage {
     position: relative;
-    border-radius: 12px;
+    border-radius: 14px;
     overflow: hidden;
     aspect-ratio: 16/9;
     background: #000;
+  }
+  .case-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(.4,0,.2,1);
+  }
+  .case {
+    position: relative;
+    flex: 0 0 100%;
+    height: 100%;
   }
   .case-bg {
     position: absolute;
@@ -369,83 +528,168 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.6));
+    background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.7));
     pointer-events: none;
   }
   .case-info {
     position: absolute;
-    bottom: 24px;
-    left: 80px;
-    max-width: 320px;
+    bottom: 28px;
+    left: 88px;
+    max-width: 360px;
     z-index: 2;
   }
   .case-info h3 {
     font-size: 22px;
     font-weight: 700;
     margin-bottom: 8px;
+    letter-spacing: -0.3px;
   }
   .case-info p {
     font-size: 13px;
     opacity: 0.85;
     line-height: 1.5;
   }
-  .case-arrow {
-    position: absolute;
-    bottom: 24px;
-    left: 24px;
-    width: 36px; height: 36px;
-    border: 1px solid rgba(255,255,255,0.5);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0,0,0,0.4);
-    z-index: 2;
-  }
+  .case-arrow,
   .case-nav {
     position: absolute;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
-    width: 36px; height: 36px;
+    width: 44px; height: 44px;
     border: 1px solid rgba(255,255,255,0.4);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    background: rgba(0,0,0,0.35);
+    color: var(--white);
     cursor: pointer;
+    z-index: 3;
+    backdrop-filter: blur(6px);
+    transition: background 0.2s ease, border-color 0.2s ease;
   }
+  .case-arrow:hover,
+  .case-nav:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.7); }
+  .case-arrow { bottom: 24px; left: 24px; }
+  .case-nav.prev { top: 50%; left: 20px; transform: translateY(-50%); }
+  .case-nav.next { top: 50%; right: 20px; transform: translateY(-50%); }
+  .case-dots {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 24px;
+  }
+  .case-dots button {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .case-dots button.is-active { background: var(--white); transform: scale(1.3); }
 
   /* ===== CLIENTS ===== */
   .clients {
-    background: var(--white);
-    color: var(--black);
-    padding: 80px 32px;
+    background: var(--black);
+    color: var(--white);
+    padding: 60px 0 80px;
+    overflow: hidden;
   }
-  .clients .tag { color: #ff5b3d; }
-  .clients-row {
+  .clients .container { padding: 0 32px; }
+  .clients .tag { color: #ff5b3d; margin-bottom: 50px; }
+  .marquee {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 72px;
+    align-items: center;
+    width: max-content;
+    animation: marquee 45s linear infinite;
+  }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .marquee-item {
+    flex: 0 0 auto;
+    height: 60px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 40px;
-    margin-top: 30px;
-    opacity: 0.9;
+    justify-content: center;
+    opacity: 0.78;
+    transition: opacity 0.25s ease;
   }
-  .clients-row .logo {
+  .marquee-item:hover { opacity: 1; }
+  .marquee-item img { height: 100%; width: auto; max-height: 56px; object-fit: contain; }
+  .marquee-item.vw img { height: 52px; filter: brightness(0) invert(1); }
+  .marquee-item.prime img { height: 48px; filter: brightness(0) invert(1); }
+  .logo-samsung {
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 700;
     font-size: 28px;
     letter-spacing: -0.5px;
   }
-  .vw-mark {
-    width: 56px; height: 56px;
-    display: flex; align-items: center; justify-content: center;
+  .bof-mark {
+    font-size: 18px;
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
   }
-  .vw-mark img { width: 100%; height: 100%; filter: invert(1); }
-  .bof-mark { font-size: 18px; }
-  .bof-mark .b { font-style: italic; font-family: Georgia, serif; font-size: 26px; }
-  .bof-mark .sub { font-size: 11px; letter-spacing: 1.5px; opacity: 0.7; display: block; margin-top: 2px; }
+  .bof-mark .b { font-style: italic; font-family: Georgia, serif; font-size: 30px; line-height: 1; }
+  .bof-mark .sub { font-size: 10px; letter-spacing: 1.5px; opacity: 0.7; }
+  .logo-rhuda {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 22px;
+    letter-spacing: 2px;
+  }
+  .logo-bobby {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: -0.5px;
+  }
+  .logo-bobby .sub { font-weight: 400; opacity: 0.8; font-size: 14px; }
+  .logo-fasset {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: -0.5px;
+  }
+  .logo-fasset::after { content: '®'; font-size: 0.5em; vertical-align: super; opacity: 0.7; }
+  .logo-interior {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    font-size: 20px;
+    letter-spacing: 0.5px;
+    text-align: center;
+    line-height: 1.15;
+  }
+  .logo-interior .ii {
+    font-family: 'Space Grotesk', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    letter-spacing: 2px;
+    font-size: 14px;
+    display: block;
+  }
+  .logo-masafi {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    font-size: 26px;
+    letter-spacing: -0.3px;
+  }
+  .logo-kahoo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: 1px;
+  }
 
   /* ===== CONTACT ===== */
   .contact {
@@ -506,7 +750,7 @@
   /* Responsive */
   @media (max-width: 820px) {
     section { padding: 60px 22px; }
-    .hero { padding: 22px 22px 0; }
+    .logo-top { top: 22px; left: 22px; }
     .nav { left: 22px; bottom: 22px; }
     .about-grid, .about-row, .system-card, .contact-head {
       grid-template-columns: 1fr;
@@ -515,6 +759,16 @@
     .about-row { margin-top: 50px; }
     .about-img { max-width: 320px; }
     .obsolete { margin-top: 60px; }
+    .clients { padding: 60px 0 80px; }
+    .clients .container { padding: 0 22px; }
+    .system-marks { gap: 22px 32px; }
+    .system-card { position: relative !important; inset: auto !important; }
+    .system-card:not(.is-active) { display: none; }
+    .case-info { left: 24px; bottom: 70px; max-width: calc(100% - 48px); }
+    .case-arrow { bottom: 16px; left: 16px; }
+    .case-nav.prev { left: 12px; }
+    .case-nav.next { right: 12px; }
+    .marquee-track { gap: 48px; }
   }
 </style>
 </head>
@@ -526,7 +780,7 @@
 
   <div class="hero-stage">
     <div class="hero-art">
-      <img src="images/img-002.jpg" alt="aimilabs" />
+      <video src="videos/hero-pill.mp4" poster="images/hero-pill.png" autoplay loop muted playsinline preload="metadata" aria-label="aimilabs"></video>
     </div>
   </div>
 
@@ -551,11 +805,11 @@
         <p>Uniting software, data, and creative into one intelligent system for modern growth.</p>
         <p>For brands that need smarter marketing.<br/>For enterprises that need AI solutions built to perform.</p>
       </div>
-      <div class="about-img"><img src="images/img-007.jpg" alt="Iridescent chess knight" /></div>
+      <div class="about-img"><video src="videos/chess-knight.mp4" poster="images/chess-knight.jpg" autoplay loop muted playsinline preload="metadata" aria-label="Iridescent chess knight"></video></div>
     </div>
 
     <div class="about-row">
-      <div class="about-img"><img src="images/img-006.jpg" alt="Hand holding a flask" /></div>
+      <div class="about-img"><video src="videos/flask.mp4" poster="images/flask.jpg" autoplay loop muted playsinline preload="metadata" aria-label="Hand holding a flask"></video></div>
       <div>
         <p>A new model built for the AI era.<br/>Not a traditional agency.<br/>Not just a software company.</p>
         <p>Built with the speed of a startup, the intelligence of a system, and the creative ambition of a modern agency.</p>
@@ -577,28 +831,54 @@
     <h2>The fuse<sup>™</sup> model</h2>
     <p class="fuse-lead">A proprietary operating model that fuses strategy, creative, and code into scalable systems for growth.</p>
 
-    <div class="venn" aria-hidden="true">
-      <div class="venn-circle vc-1"></div>
-      <div class="venn-circle vc-2"></div>
-      <div class="venn-circle vc-3"></div>
-      <div class="venn-circle vc-4"></div>
+    <div class="venn" data-active="forge">
+      <div class="venn-circle vc-1" data-label="forge"></div>
+      <div class="venn-circle vc-2" data-label="unlock"></div>
+      <div class="venn-circle vc-3" data-label="shape"></div>
+      <div class="venn-circle vc-4" data-label="embed"></div>
       <div class="venn-glow"></div>
       <div class="venn-center">
-        <div class="fuse-mark">fuse</div>
+        <div class="fuse-mark" aria-label="fuse"><span class="l-f">f</span><span class="l-u">u</span><span class="l-s">s</span><span class="l-e">e</span></div>
         <div class="by">by aimilabs</div>
       </div>
     </div>
 
-    <div class="pills">
-      <span class="pill">forge</span>
-      <span class="pill">unlock</span>
-      <span class="pill">shape</span>
-      <span class="pill">embed</span>
+    <div class="pills" role="tablist">
+      <button class="pill is-active" type="button" data-state="forge">forge</button>
+      <button class="pill" type="button" data-state="unlock">unlock</button>
+      <button class="pill" type="button" data-state="shape">shape</button>
+      <button class="pill" type="button" data-state="embed">embed</button>
     </div>
 
-    <p class="fuse-foot">We forge with intent. Combine strategy, creative, and code to create high-performing work fast, focused, and future-ready.</p>
+    <p class="fuse-foot" data-copy>We forge with intent. Combine strategy, creative, and code to create high-performing work fast, focused, and future-ready.</p>
   </div>
 </section>
+
+<script>
+  (function() {
+    var copy = {
+      forge:  "We forge with intent. Combine strategy, creative, and code to create high-performing work fast, focused, and future-ready.",
+      unlock: "Launch to learn fast and focused. Every signal unlocks insights that power scalable growth platforms. We unlock in motion.",
+      shape:  "Shape creative ecosystems, modular content, and design frameworks that evolve with your brand. Make it once. Make it stretch.",
+      embed:  "We integrate into your team as your AI-native, always-on partner. Deep inside your tools, culture and workflows."
+    };
+    var venn = document.querySelector('.venn');
+    var foot = document.querySelector('[data-copy]');
+    var pills = document.querySelectorAll('.pill');
+    pills.forEach(function(p) {
+      p.addEventListener('click', function() {
+        var s = p.dataset.state;
+        venn.dataset.active = s;
+        pills.forEach(function(o) { o.classList.toggle('is-active', o === p); });
+        foot.style.opacity = 0;
+        setTimeout(function() {
+          foot.textContent = copy[s];
+          foot.style.opacity = 1;
+        }, 180);
+      });
+    });
+  })();
+</script>
 
 <!-- SYSTEMS -->
 <section class="systems" id="systems">
@@ -606,25 +886,87 @@
     <span class="tag">Systems</span>
     <h2>Our proprietary ai systems we built</h2>
 
-    <div class="system-marks">
-      <span class="mk">ai.mee<sup>™</sup></span>
-      <span class="mk">ai.m3<sup>™</sup></span>
-      <span class="mk">ai.view<sup>™</sup></span>
-      <span class="mk">rel.ai<sup>™</sup></span>
+    <div class="system-marks" role="tablist">
+      <button class="mk is-active" type="button" data-system="mee">ai.mee<sup>™</sup></button>
+      <button class="mk" type="button" data-system="m3">ai.m3<sup>™</sup></button>
+      <button class="mk" type="button" data-system="view">ai.view<sup>™</sup></button>
+      <button class="mk" type="button" data-system="rel">rel.ai<sup>™</sup></button>
     </div>
 
-    <div class="system-card">
-      <div>
-        <h3>AI Powered Marketing Engine</h3>
-        <p>The intelligence engine powering aimilabs. It doesn't just process data; it learns, adapts, and anticipates audience behavior in real time to create human-centered brand experiences at scale.</p>
-        <ul>
-          <li>NLP/ML CORE</li>
-          <li>HYPER-PERSONALIZATION</li>
-          <li>END-TO-END AUTOMATION</li>
-          <li>PREDICTIVE MODELING</li>
-        </ul>
+    <div class="system-stage">
+      <div class="system-card is-active" data-system="mee">
+        <div>
+          <h3>AI Powered Marketing Engine</h3>
+          <p>The intelligence engine powering aimilabs. It doesn't just process data; it learns, adapts, and anticipates audience behavior in real time to create human-centered brand experiences at scale.</p>
+          <ul>
+            <li>NLP/ML CORE</li>
+            <li>HYPER-PERSONALIZATION</li>
+            <li>END-TO-END AUTOMATION</li>
+            <li>PREDICTIVE MODELING</li>
+          </ul>
+        </div>
+        <div class="system-visual"><img src="images/ai-audience.png" alt="AI Audience Identification dashboard" /></div>
       </div>
-      <div class="system-visual"><img src="images/img-000.jpg" alt="AI Audience Identification dashboard" /></div>
+
+      <div class="system-card" data-system="m3">
+        <div>
+          <h3>Marketing Mix Modeling</h3>
+          <p>Proprietary engine built to decode what's truly driving performance. Analyzes historical media spend, sales data, and behavioral signals to reveal the impact of every channel.</p>
+          <ul>
+            <li>HISTORICAL ANALYSIS</li>
+            <li>BEHAVIORAL SIGNALS</li>
+            <li>BUDGET OPTIMIZATION</li>
+            <li>PERFORMANCE DECODING</li>
+          </ul>
+        </div>
+        <div class="system-visual gradient-pink">
+          <div class="panel-card"></div>
+          <div class="panel-mark">
+            <div class="big">Content Engine</div>
+            <div class="small">Generative Copy · Embrace Unbounded</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="system-card" data-system="view">
+        <div>
+          <h3>Media Intel Governance</h3>
+          <p>Media performance platform built to give global brands full visibility and control. Centralizes fragmented data into one intelligent dashboard for real-time optimization.</p>
+          <ul>
+            <li>GLOBAL VISIBILITY</li>
+            <li>CENTRALIZED DASHBOARD</li>
+            <li>REAL-TIME OPTIMIZATION</li>
+            <li>CREATIVE PERFORMANCE</li>
+          </ul>
+        </div>
+        <div class="system-visual gradient-mist">
+          <div class="panel-card"></div>
+          <div class="panel-mark">
+            <div class="big" style="color:#2a2f55">Global Intel</div>
+            <div class="small" style="color:#2a2f55">Unified Dashboard · Real-time Signal</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="system-card" data-system="rel">
+        <div>
+          <h3>AI-Native Creative Workflow</h3>
+          <p>Proprietary platform that brings multiple AI models, editing tools, and production steps into one seamless system for faster, more controllable content creation.</p>
+          <ul>
+            <li>MULTI-MODEL INTEGRATION</li>
+            <li>INTEGRATED EDITING</li>
+            <li>PRODUCTION PIPELINES</li>
+            <li>CONTROLLABLE OUTPUT</li>
+          </ul>
+        </div>
+        <div class="system-visual gradient-amber">
+          <div class="panel-card"></div>
+          <div class="panel-mark">
+            <div class="big">Creative Workflow</div>
+            <div class="small">Multi-model · Bright Future</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -635,14 +977,38 @@
     <span class="tag">Studio</span>
     <p class="studio-lead">A curated repository of generative campaigns, AI-native videos, virtual influencers, and scalable content systems built for the world's leading brands.</p>
 
-    <div class="case">
-      <img class="case-bg" src="images/img-004.jpg" alt="Samsung Switch — man in front of refrigerator" />
-      <div class="case-arrow" aria-hidden="true">→</div>
-      <div class="case-info">
-        <h3>Samsung Switch</h3>
-        <p>A curated repository of generative campaigns, AI-native videos, virtual influencers, and scalable content systems built for the world's leading brands.</p>
+    <div class="case-stage" data-current="0">
+      <div class="case-track">
+        <div class="case">
+          <img class="case-bg" src="images/samsung-switch.jpg" alt="Samsung Switch — man in front of refrigerator" />
+          <div class="case-info">
+            <h3>Samsung Switch</h3>
+            <p>A generative AI-native film exploring the moment of choice — directed end-to-end through aimilabs creative pipelines.</p>
+          </div>
+        </div>
+        <div class="case">
+          <img class="case-bg" src="images/samsung-frame-vangogh.jpg" alt="Samsung The Frame — Van Gogh breakout" />
+          <div class="case-info">
+            <h3>Samsung The Frame</h3>
+            <p>Reimagining masterpieces as living art. A generative campaign breaking the frame between paintings and culture.</p>
+          </div>
+        </div>
+        <div class="case">
+          <img class="case-bg" src="images/samsung-frame-silhouette.png" alt="Samsung The Frame — silhouette portrait" />
+          <div class="case-info">
+            <h3>Samsung The Frame</h3>
+            <p>Portrait series rendered through AI-native cinematography — the silhouette of a sitter reborn in pigment and light.</p>
+          </div>
+        </div>
       </div>
-      <div class="case-nav" aria-hidden="true">→</div>
+      <button class="case-arrow" type="button" aria-label="Open case" data-action="open">→</button>
+      <button class="case-nav prev" type="button" aria-label="Previous case" data-action="prev">‹</button>
+      <button class="case-nav next" type="button" aria-label="Next case" data-action="next">›</button>
+    </div>
+    <div class="case-dots" aria-hidden="true">
+      <button type="button" class="is-active" data-go="0"></button>
+      <button type="button" data-go="1"></button>
+      <button type="button" data-go="2"></button>
     </div>
   </div>
 </section>
@@ -651,14 +1017,81 @@
 <section class="clients" id="clients">
   <div class="container">
     <span class="tag">Clients</span>
-    <div class="clients-row">
-      <div class="vw-mark" aria-label="Volkswagen"><img src="images/img-008.png" alt="Volkswagen" /></div>
-      <div class="logo">SAMSUNG</div>
-      <div class="bof-mark"><span class="b">B</span>oF<span class="sub">TECH</span></div>
-      <div class="bof-mark"><span class="b">B</span>oF<span class="sub">INVESTMENTS</span></div>
+  </div>
+  <div class="marquee">
+    <div class="marquee-track">
+      <div class="marquee-item vw" aria-label="Volkswagen"><img src="images/volkswagen.png" alt="Volkswagen" /></div>
+      <div class="marquee-item"><span class="logo-samsung">SAMSUNG</span></div>
+      <div class="marquee-item"><span class="bof-mark"><span class="b">B</span>oF<span class="sub">TECH</span></span></div>
+      <div class="marquee-item"><span class="bof-mark"><span class="b">B</span>oF<span class="sub">INVESTMENTS</span></span></div>
+      <div class="marquee-item"><span class="bof-mark"><span class="b">B</span>oF<span class="sub">BANK</span></span></div>
+      <div class="marquee-item"><span class="bof-mark"><span class="b">B</span>oF<span class="sub">ASSET MGMT</span></span></div>
+      <div class="marquee-item"><span class="bof-mark"><span class="b">B</span>oF<span class="sub">PAY</span></span></div>
+      <div class="marquee-item"><span class="logo-rhuda">RHUDA</span></div>
+      <div class="marquee-item prime"><img src="images/prime-living-28.png" alt="Prime Living 28" /></div>
+      <div class="marquee-item"><span class="logo-bobby">Bobby<span class="sub">travel.com</span></span></div>
+      <div class="marquee-item"><span class="logo-fasset">FASSET</span></div>
+      <div class="marquee-item"><span class="logo-interior"><span class="ii">II</span>Interior Italia</span></div>
+      <div class="marquee-item"><span class="logo-masafi">masafi</span></div>
+      <div class="marquee-item"><span class="logo-kahoo">KAHOO</span></div>
+      <!-- duplicate for seamless loop -->
+      <div class="marquee-item vw" aria-hidden="true"><img src="images/volkswagen.png" alt="" /></div>
+      <div class="marquee-item" aria-hidden="true"><span class="logo-samsung">SAMSUNG</span></div>
+      <div class="marquee-item" aria-hidden="true"><span class="bof-mark"><span class="b">B</span>oF<span class="sub">TECH</span></span></div>
+      <div class="marquee-item" aria-hidden="true"><span class="bof-mark"><span class="b">B</span>oF<span class="sub">INVESTMENTS</span></span></div>
+      <div class="marquee-item" aria-hidden="true"><span class="bof-mark"><span class="b">B</span>oF<span class="sub">BANK</span></span></div>
+      <div class="marquee-item" aria-hidden="true"><span class="bof-mark"><span class="b">B</span>oF<span class="sub">ASSET MGMT</span></span></div>
+      <div class="marquee-item" aria-hidden="true"><span class="bof-mark"><span class="b">B</span>oF<span class="sub">PAY</span></span></div>
+      <div class="marquee-item" aria-hidden="true"><span class="logo-rhuda">RHUDA</span></div>
+      <div class="marquee-item prime" aria-hidden="true"><img src="images/prime-living-28.png" alt="" /></div>
+      <div class="marquee-item" aria-hidden="true"><span class="logo-bobby">Bobby<span class="sub">travel.com</span></span></div>
+      <div class="marquee-item" aria-hidden="true"><span class="logo-fasset">FASSET</span></div>
+      <div class="marquee-item" aria-hidden="true"><span class="logo-interior"><span class="ii">II</span>Interior Italia</span></div>
+      <div class="marquee-item" aria-hidden="true"><span class="logo-masafi">masafi</span></div>
+      <div class="marquee-item" aria-hidden="true"><span class="logo-kahoo">KAHOO</span></div>
     </div>
   </div>
 </section>
+
+<script>
+  (function() {
+    // SYSTEMS tabs
+    var marks = document.querySelectorAll('.system-marks .mk');
+    var cards = document.querySelectorAll('.system-card');
+    marks.forEach(function(m) {
+      m.addEventListener('click', function() {
+        var key = m.dataset.system;
+        marks.forEach(function(o) { o.classList.toggle('is-active', o === m); });
+        cards.forEach(function(c) { c.classList.toggle('is-active', c.dataset.system === key); });
+      });
+    });
+
+    // STUDIO carousel
+    var stage = document.querySelector('.case-stage');
+    if (stage) {
+      var track = stage.querySelector('.case-track');
+      var slides = stage.querySelectorAll('.case');
+      var dots = document.querySelectorAll('.case-dots button');
+      var idx = 0;
+      function go(i) {
+        idx = (i + slides.length) % slides.length;
+        track.style.transform = 'translateX(' + (-idx * 100) + '%)';
+        stage.dataset.current = idx;
+        dots.forEach(function(d, di) { d.classList.toggle('is-active', di === idx); });
+      }
+      stage.querySelectorAll('[data-action]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var a = btn.dataset.action;
+          if (a === 'prev') go(idx - 1);
+          else if (a === 'next' || a === 'open') go(idx + 1);
+        });
+      });
+      dots.forEach(function(d, di) {
+        d.addEventListener('click', function() { go(di); });
+      });
+    }
+  })();
+</script>
 
 <!-- CONTACT -->
 <section class="contact" id="contact">
