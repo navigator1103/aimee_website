@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI-native vs. AI-adjacent — aimilabs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #0100fe;
+    --black: #000000;
+    --white: #ffffff;
+    --coral: #ff5b3d;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+    background: var(--black);
+    color: var(--white);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+
+  .page-head {
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .page-head .logo-top { line-height: 0; }
+  .page-head .logo-top img { height: 22px; width: auto; display: block; }
+  .page-nav { display: flex; gap: 6px; flex-wrap: wrap; }
+  .page-nav a {
+    padding: 8px 18px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.06);
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: all 0.2s ease;
+  }
+  .page-nav a:hover { background: var(--white); color: var(--black); }
+  .page-nav a.is-active { background: var(--white); color: var(--black); }
+
+  main { flex: 1; padding: 40px 32px 80px; }
+  .article { max-width: 740px; margin: 0 auto; }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--coral);
+    margin-bottom: 24px;
+  }
+  .article h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(34px, 5vw, 60px);
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    line-height: 1.05;
+    margin-bottom: 28px;
+  }
+  .article .meta {
+    font-size: 14px;
+    opacity: 0.75;
+    margin-bottom: 56px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+  }
+  .article .meta .dot { margin: 0 10px; opacity: 0.4; }
+  .article .lead {
+    font-size: clamp(20px, 1.7vw, 24px);
+    line-height: 1.45;
+    margin-bottom: 48px;
+    color: rgba(255,255,255,0.95);
+  }
+  .article p {
+    font-size: 17px;
+    line-height: 1.65;
+    margin-bottom: 24px;
+    color: rgba(255,255,255,0.85);
+  }
+  .article h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(24px, 2.2vw, 30px);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-top: 48px;
+    margin-bottom: 16px;
+  }
+  .article blockquote {
+    border-left: 3px solid var(--coral);
+    padding: 8px 0 8px 24px;
+    margin: 32px 0;
+    font-size: 19px;
+    font-style: italic;
+    color: rgba(255,255,255,0.95);
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 64px;
+    padding: 10px 20px;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 999px;
+    font-size: 14px;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .back-link:hover { background: var(--white); color: var(--black); }
+
+  .contact-mark {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 40px 32px;
+    background: var(--blue);
+  }
+  .contact-mark .word { line-height: 0; }
+  .contact-mark .word img {
+    height: clamp(40px, 8vw, 110px);
+    width: auto;
+    display: block;
+  }
+  .a-mark { line-height: 0; flex-shrink: 0; }
+  .a-mark img {
+    height: clamp(32px, 5.5vw, 78px);
+    width: auto;
+    display: block;
+  }
+
+  @media (max-width: 660px) {
+    .page-head { padding: 22px; }
+    main { padding: 20px 22px 60px; }
+    .contact-mark { padding: 30px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="page-head">
+  <a href="/" class="logo-top" aria-label="aimilabs"><img src="../images/aimilabs-wordmark-white.png" alt="aimilabs" /></a>
+  <nav class="page-nav">
+    <a href="/#about">About</a>
+    <a href="/#model">The Model</a>
+    <a href="/#systems">Systems</a>
+    <a href="/#studio">Studio</a>
+    <a href="/#clients">Clients</a>
+    <a href="/blog.html" class="is-active">Blog</a>
+    <a href="/contact.html">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <article class="article">
+    <span class="eyebrow">Perspective</span>
+    <h1>AI-native vs. AI-adjacent — the gap that matters</h1>
+    <div class="meta">May 2, 2026 <span class="dot">·</span> 4 min read</div>
+
+    <p class="lead">Every agency on Earth now claims to "use AI." Almost none of them are built around it. The distinction sounds semantic. It isn't — it's the whole game.</p>
+
+    <p>AI-adjacent agencies bolt models onto an existing workflow. There's still a creative director, still a strategy deck, still a six-week production cycle. AI shows up as a tool the team picks up at certain stages — to generate a moodboard, to draft a script, to upscale a render. The org chart is unchanged. The economics are unchanged. The output looks slightly different, sometimes better. The system that produced it does not.</p>
+
+    <p>AI-native agencies start from a different question. Not "where can we plug AI into this process?" but "what kind of process becomes possible when the model is a first-class participant in every decision?" That reframes everything downstream: how briefs are written (so a model can act on them), how creative is reviewed (so the feedback loop is mechanical, not interpretive), how performance is measured (so the model learns from real signals, not post-hoc rationalizations).</p>
+
+    <h2>Why the difference shows up in months four through twelve</h2>
+
+    <p>You can't tell the two apart from a single deliverable. An AI-adjacent shop and an AI-native one can both produce a great launch film. The divergence starts after the launch, when the campaign needs to evolve, when audience signal needs to feed back into creative, when scale needs to happen without a linear increase in headcount. AI-adjacent shops respond to that with more people. AI-native shops respond with a sharper model.</p>
+
+    <blockquote>The cheapest mistake an enterprise can make right now is hiring an "AI-enabled" agency that's structurally a 2018 agency.</blockquote>
+
+    <p>The cheapest mistake an enterprise can make right now is hiring an "AI-enabled" agency that's structurally a 2018 agency. The work will land. The capability won't transfer. Eighteen months in, the brand will own a stack of beautifully-generated assets and zero systems for making the next ones.</p>
+
+    <p>If you're evaluating partners, the question isn't "do you use AI?" — everyone will say yes. The questions worth asking are sharper: <em>What does your org chart look like? Who decides when a model gets retrained? What lives inside our team after the engagement ends?</em> The answers separate native from adjacent very quickly.</p>
+
+    <a href="/blog.html" class="back-link">← All field notes</a>
+  </article>
+</main>
+
+<footer>
+  <div class="contact-mark">
+    <div class="word"><img src="../images/aimilabs-wordmark-white.png" alt="aimilabs" /></div>
+    <div class="a-mark" aria-hidden="true"><img src="../images/aimilabs-a-mark.png" alt="" /></div>
+  </div>
+</footer>
+
+</body>
+</html>

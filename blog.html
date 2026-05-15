@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Field notes — aimilabs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #0100fe;
+    --black: #000000;
+    --white: #ffffff;
+    --grey-2: #f4f4f4;
+    --coral: #ff5b3d;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+    background: var(--black);
+    color: var(--white);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+
+  .page-head {
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    z-index: 5;
+  }
+  .page-head .logo-top { line-height: 0; }
+  .page-head .logo-top img { height: 22px; width: auto; display: block; }
+  .page-nav { display: flex; gap: 6px; flex-wrap: wrap; }
+  .page-nav a {
+    padding: 8px 18px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.06);
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: all 0.2s ease;
+  }
+  .page-nav a:hover { background: var(--white); color: var(--black); }
+  .page-nav a.is-active { background: var(--white); color: var(--black); }
+
+  main { flex: 1; padding: 60px 32px 100px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+
+  .tag {
+    display: inline-block;
+    padding: 8px 22px;
+    border-radius: 999px;
+    border: 1.5px solid currentColor;
+    font-size: clamp(14px, 1.1vw, 16px);
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    margin-bottom: 32px;
+    color: var(--coral);
+  }
+  h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(40px, 6vw, 80px);
+    font-weight: 700;
+    letter-spacing: -2px;
+    line-height: 1;
+    margin-bottom: 24px;
+  }
+  .lead {
+    font-size: clamp(18px, 1.6vw, 22px);
+    max-width: 640px;
+    line-height: 1.45;
+    opacity: 0.9;
+    margin-bottom: 72px;
+  }
+
+  .post-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .post-card {
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+    aspect-ratio: 4/5;
+    color: var(--white);
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s ease;
+  }
+  .post-card:hover { transform: translateY(-4px); }
+  .post-card.blue { background: var(--blue); }
+  .post-card.coral { background: var(--coral); }
+  .post-card.ink { background: #0c0c0c; border: 1px solid rgba(255,255,255,0.1); }
+
+  .post-card .eyebrow {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 500;
+    opacity: 0.8;
+  }
+  .post-card .post-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(22px, 2.2vw, 32px);
+    font-weight: 700;
+    letter-spacing: -0.6px;
+    line-height: 1.1;
+    margin-top: auto;
+    margin-bottom: 16px;
+  }
+  .post-card .post-meta {
+    font-size: 13px;
+    opacity: 0.85;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .post-card .post-meta .arrow {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 1px solid currentColor;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .post-card:hover .arrow { background: var(--white); color: var(--black); }
+
+  .empty-state {
+    text-align: center;
+    padding: 80px 24px;
+    opacity: 0.7;
+    font-size: 16px;
+  }
+
+  /* footer */
+  .contact-mark {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 40px 32px;
+    background: var(--blue);
+  }
+  .contact-mark .word { line-height: 0; }
+  .contact-mark .word img {
+    height: clamp(40px, 8vw, 110px);
+    width: auto;
+    max-width: 100%;
+    display: block;
+  }
+  .a-mark { line-height: 0; flex-shrink: 0; }
+  .a-mark img {
+    height: clamp(32px, 5.5vw, 78px);
+    width: auto;
+    display: block;
+  }
+
+  @media (max-width: 980px) {
+    .post-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 660px) {
+    .page-head { padding: 22px; }
+    main { padding: 30px 22px 80px; }
+    .post-grid { grid-template-columns: 1fr; }
+    .post-card { aspect-ratio: auto; min-height: 320px; }
+    .contact-mark { padding: 30px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="page-head">
+  <a href="/" class="logo-top" aria-label="aimilabs"><img src="images/aimilabs-wordmark-white.png" alt="aimilabs" /></a>
+  <nav class="page-nav">
+    <a href="/#about">About</a>
+    <a href="/#model">The Model</a>
+    <a href="/#systems">Systems</a>
+    <a href="/#studio">Studio</a>
+    <a href="/#clients">Clients</a>
+    <a href="/blog.html" class="is-active">Blog</a>
+    <a href="/contact.html">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <div class="container">
+    <span class="tag">Field notes</span>
+    <h1>What we're<br/>thinking about.</h1>
+    <p class="lead">Writing about AI-native creative, the systems we build, and the work that comes out of them.</p>
+
+    <div class="post-grid">
+
+      <a href="/blog/why-we-built-fuse.html" class="post-card blue">
+        <span class="eyebrow">Model</span>
+        <h2 class="post-title">Why we built the fuse model</h2>
+        <div class="post-meta">
+          <span>May 13, 2026</span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </div>
+      </a>
+
+      <a href="/blog/ai-native-vs-ai-adjacent.html" class="post-card coral">
+        <span class="eyebrow">Perspective</span>
+        <h2 class="post-title">AI-native vs. AI-adjacent — the gap that matters</h2>
+        <div class="post-meta">
+          <span>May 2, 2026</span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </div>
+      </a>
+
+      <a href="/blog/inside-ai-mee.html" class="post-card ink">
+        <span class="eyebrow">Systems</span>
+        <h2 class="post-title">Inside ai.mee — building an audience engine that learns</h2>
+        <div class="post-meta">
+          <span>Apr 21, 2026</span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="contact-mark">
+    <div class="word"><img src="images/aimilabs-wordmark-white.png" alt="aimilabs" /></div>
+    <div class="a-mark" aria-hidden="true"><img src="images/aimilabs-a-mark.png" alt="" /></div>
+  </div>
+</footer>
+
+</body>
+</html>

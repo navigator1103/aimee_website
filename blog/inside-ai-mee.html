@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Inside ai.mee — aimilabs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #0100fe;
+    --black: #000000;
+    --white: #ffffff;
+    --coral: #ff5b3d;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+    background: var(--black);
+    color: var(--white);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+
+  .page-head {
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .page-head .logo-top { line-height: 0; }
+  .page-head .logo-top img { height: 22px; width: auto; display: block; }
+  .page-nav { display: flex; gap: 6px; flex-wrap: wrap; }
+  .page-nav a {
+    padding: 8px 18px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.06);
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: all 0.2s ease;
+  }
+  .page-nav a:hover { background: var(--white); color: var(--black); }
+  .page-nav a.is-active { background: var(--white); color: var(--black); }
+
+  main { flex: 1; padding: 40px 32px 80px; }
+  .article { max-width: 740px; margin: 0 auto; }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--coral);
+    margin-bottom: 24px;
+  }
+  .article h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(34px, 5vw, 60px);
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    line-height: 1.05;
+    margin-bottom: 28px;
+  }
+  .article .meta {
+    font-size: 14px;
+    opacity: 0.75;
+    margin-bottom: 56px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+  }
+  .article .meta .dot { margin: 0 10px; opacity: 0.4; }
+  .article .lead {
+    font-size: clamp(20px, 1.7vw, 24px);
+    line-height: 1.45;
+    margin-bottom: 48px;
+    color: rgba(255,255,255,0.95);
+  }
+  .article p {
+    font-size: 17px;
+    line-height: 1.65;
+    margin-bottom: 24px;
+    color: rgba(255,255,255,0.85);
+  }
+  .article h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(24px, 2.2vw, 30px);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-top: 48px;
+    margin-bottom: 16px;
+  }
+  .article ul {
+    margin: 0 0 28px 0;
+    padding-left: 22px;
+  }
+  .article li {
+    font-size: 17px;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 8px;
+  }
+  .article blockquote {
+    border-left: 3px solid var(--coral);
+    padding: 8px 0 8px 24px;
+    margin: 32px 0;
+    font-size: 19px;
+    font-style: italic;
+    color: rgba(255,255,255,0.95);
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 64px;
+    padding: 10px 20px;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 999px;
+    font-size: 14px;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .back-link:hover { background: var(--white); color: var(--black); }
+
+  .contact-mark {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 40px 32px;
+    background: var(--blue);
+  }
+  .contact-mark .word { line-height: 0; }
+  .contact-mark .word img {
+    height: clamp(40px, 8vw, 110px);
+    width: auto;
+    display: block;
+  }
+  .a-mark { line-height: 0; flex-shrink: 0; }
+  .a-mark img {
+    height: clamp(32px, 5.5vw, 78px);
+    width: auto;
+    display: block;
+  }
+
+  @media (max-width: 660px) {
+    .page-head { padding: 22px; }
+    main { padding: 20px 22px 60px; }
+    .contact-mark { padding: 30px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="page-head">
+  <a href="/" class="logo-top" aria-label="aimilabs"><img src="../images/aimilabs-wordmark-white.png" alt="aimilabs" /></a>
+  <nav class="page-nav">
+    <a href="/#about">About</a>
+    <a href="/#model">The Model</a>
+    <a href="/#systems">Systems</a>
+    <a href="/#studio">Studio</a>
+    <a href="/#clients">Clients</a>
+    <a href="/blog.html" class="is-active">Blog</a>
+    <a href="/contact.html">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <article class="article">
+    <span class="eyebrow">Systems</span>
+    <h1>Inside ai.mee — building an audience engine that learns</h1>
+    <div class="meta">Apr 21, 2026 <span class="dot">·</span> 6 min read</div>
+
+    <p class="lead">ai.mee is the intelligence engine that sits underneath every aimilabs engagement. Here's what's actually inside it, why we built each piece the way we did, and what it means for the work it produces.</p>
+
+    <p>At a surface level, ai.mee is an audience-modeling system. It ingests first-party data, third-party signals, behavioral telemetry, and conversational text, then produces real-time decisions about who to talk to, what to say, and when to say it. That description makes it sound like a thousand other marketing tech products. The difference is in how the components are wired together — and what the system is allowed to do on its own.</p>
+
+    <h2>Four layers, one loop</h2>
+
+    <p>Internally we describe ai.mee as four layers stacked over a feedback loop:</p>
+
+    <ul>
+      <li><strong>Signal:</strong> the raw ingestion layer — 1P audiences, 3P enrichment, web behavior, in-store events, lookalikes.</li>
+      <li><strong>Sense:</strong> the NLP/ML core that turns those signals into vectors a model can actually reason about.</li>
+      <li><strong>Shape:</strong> the personalization layer that maps vectors back into creative, channel, and timing decisions.</li>
+      <li><strong>Ship:</strong> end-to-end automation — campaigns get authored, deployed, and measured without a human in every step.</li>
+    </ul>
+
+    <p>The loop is what holds it together. Every shipped impression generates new signal, which sharpens the sense layer, which lets shape make a slightly better call next time. After a few weeks running on a client's audience, the model is materially better than the one we deployed on day one. After six months, it's a meaningfully different model.</p>
+
+    <h2>What we deliberately didn't build</h2>
+
+    <blockquote>The hardest part of building ai.mee wasn't the models — it was deciding what the models would <em>not</em> be allowed to do.</blockquote>
+
+    <p>We didn't build a dashboard product. We built an engine. There's a control surface for the team running an engagement, but ai.mee isn't a tool a marketer logs in to and clicks around. It's infrastructure — it makes decisions, hands them off to creative pipelines, and reports outcomes back to a real human in the loop on a scheduled cadence.</p>
+
+    <p>We also didn't build a generic model. Every deployment of ai.mee gets adapted to the client's first-party audience, their historical performance, and their brand constraints. The base model is ours; the embeddings, the policy layer, and the channel mix get tuned for each engagement. That's why the work compounds — the asset a client owns at the end of the engagement isn't the campaign, it's the model that produced it.</p>
+
+    <h2>Predictive, not reactive</h2>
+
+    <p>The predictive modeling layer is the piece that took the longest to get right. Reactive personalization — "this person clicked X, show them more of X" — is solved. Predictive personalization — "this person is about to want X, surface it before they ask" — is much harder, and much more valuable. Most of the engineering investment in ai.mee over the last year has gone into the predictive piece: building the signal sources, the training data, and the policy guardrails that let a model act early without acting reckless.</p>
+
+    <p>That's the short version. There's a deeper post coming on the policy layer specifically — how we constrain a model that's allowed to take real actions in the world, and what goes wrong when those constraints aren't tight enough.</p>
+
+    <a href="/blog.html" class="back-link">← All field notes</a>
+  </article>
+</main>
+
+<footer>
+  <div class="contact-mark">
+    <div class="word"><img src="../images/aimilabs-wordmark-white.png" alt="aimilabs" /></div>
+    <div class="a-mark" aria-hidden="true"><img src="../images/aimilabs-a-mark.png" alt="" /></div>
+  </div>
+</footer>
+
+</body>
+</html>
