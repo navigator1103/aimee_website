@@ -496,19 +496,18 @@
   .case-stage {
     position: relative;
     overflow: hidden;
-    aspect-ratio: 16/9;
-    background: #000;
   }
   .case-track {
     display: flex;
-    width: 100%;
-    height: 100%;
+    gap: 20px;
     transition: transform 0.6s cubic-bezier(.4,0,.2,1);
   }
   .case {
     position: relative;
-    flex: 0 0 100%;
-    height: 100%;
+    flex: 0 0 calc((100% - 40px) / 3);
+    aspect-ratio: 9/16;
+    background: #050505;
+    overflow: hidden;
   }
   .case-bg {
     position: absolute;
@@ -517,58 +516,59 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
+    display: block;
   }
   .case::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.7));
+    background: linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.85));
     pointer-events: none;
   }
   .case-info {
     position: absolute;
-    bottom: 28px;
-    left: 88px;
-    max-width: 360px;
+    bottom: 22px;
+    left: 22px;
+    right: 22px;
     z-index: 2;
   }
   .case-info h3 {
-    font-size: 22px;
+    font-size: clamp(16px, 1.4vw, 20px);
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     letter-spacing: -0.3px;
   }
   .case-info p {
-    font-size: 13px;
+    font-size: 12px;
     opacity: 0.85;
-    line-height: 1.5;
+    line-height: 1.45;
   }
-  .case-arrow,
   .case-nav {
     position: absolute;
+    top: 50%;
     width: 44px; height: 44px;
     border: 1px solid rgba(255,255,255,0.4);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0,0,0,0.35);
+    background: rgba(0,0,0,0.45);
     color: var(--white);
     cursor: pointer;
     z-index: 3;
     backdrop-filter: blur(6px);
     transition: background 0.2s ease, border-color 0.2s ease;
+    font-size: 22px;
+    line-height: 1;
   }
-  .case-arrow:hover,
   .case-nav:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.7); }
-  .case-arrow { bottom: 24px; left: 24px; }
-  .case-nav.prev { top: 50%; left: 20px; transform: translateY(-50%); }
-  .case-nav.next { top: 50%; right: 20px; transform: translateY(-50%); }
+  .case-nav.prev { left: -22px; transform: translateY(-50%); }
+  .case-nav.next { right: -22px; transform: translateY(-50%); }
   .case-dots {
     display: flex;
     gap: 8px;
     justify-content: center;
-    margin-top: 24px;
+    margin-top: 28px;
   }
   .case-dots button {
     width: 8px; height: 8px;
@@ -694,9 +694,9 @@
   .contact .tag { color: var(--white); }
   .contact-head {
     display: grid;
-    grid-template-columns: 1.4fr 1fr 1fr;
-    gap: 30px;
-    align-items: start;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+    align-items: end;
     padding-bottom: 80px;
   }
   .contact-head h2 {
@@ -782,10 +782,9 @@
     .system-marks { gap: 22px 32px; }
     .system-card { position: relative !important; inset: auto !important; }
     .system-card:not(.is-active) { display: none; }
-    .case-info { left: 24px; bottom: 70px; max-width: calc(100% - 48px); }
-    .case-arrow { bottom: 16px; left: 16px; }
-    .case-nav.prev { left: 12px; }
-    .case-nav.next { right: 12px; }
+    .case { flex: 0 0 100%; }
+    .case-nav.prev { left: 8px; }
+    .case-nav.next { right: 8px; }
     .marquee-track { gap: 48px; }
   }
 </style>
@@ -998,28 +997,97 @@
     <div class="case-stage" data-current="0">
       <div class="case-track">
         <div class="case">
-          <img class="case-bg" src="images/samsung-switch.jpg" alt="Samsung Switch — man in front of refrigerator" />
+          <video class="case-bg" src="videos/samsung-artcomeshome.mp4" poster="images/samsung-frame-vangogh.jpg" autoplay loop muted playsinline preload="metadata"></video>
           <div class="case-info">
-            <h3>Samsung Switch</h3>
-            <p>A generative AI-native film exploring the moment of choice — directed end-to-end through aimilabs creative pipelines.</p>
+            <h3>Samsung · Art Comes Home</h3>
+            <p>The Frame turns living rooms into galleries — masterpieces re-animated for a new generation.</p>
           </div>
         </div>
         <div class="case">
-          <img class="case-bg" src="images/samsung-frame-vangogh.jpg" alt="Samsung The Frame — Van Gogh breakout" />
+          <video class="case-bg" src="videos/samsung-mona-lisa.mp4" poster="images/samsung-frame-silhouette.png" autoplay loop muted playsinline preload="metadata"></video>
           <div class="case-info">
-            <h3>Samsung The Frame</h3>
-            <p>Reimagining masterpieces as living art. A generative campaign breaking the frame between paintings and culture.</p>
+            <h3>Samsung · Mona Lisa</h3>
+            <p>The Frame reframed — Da Vinci's icon rebuilt for the AI-native moment.</p>
           </div>
         </div>
         <div class="case">
-          <img class="case-bg" src="images/samsung-frame-silhouette.png" alt="Samsung The Frame — silhouette portrait" />
+          <video class="case-bg" src="videos/samsung-refrigerator.mp4" poster="images/samsung-switch.jpg" autoplay loop muted playsinline preload="metadata"></video>
           <div class="case-info">
-            <h3>Samsung The Frame</h3>
-            <p>Portrait series rendered through AI-native cinematography — the silhouette of a sitter reborn in pigment and light.</p>
+            <h3>Samsung · Bespoke AI</h3>
+            <p>Refrigerator film for the Bespoke AI line — generative storytelling that learns the home.</p>
+          </div>
+        </div>
+        <div class="case">
+          <video class="case-bg" src="videos/samsung-pre-ramadan.mp4" autoplay loop muted playsinline preload="metadata"></video>
+          <div class="case-info">
+            <h3>Samsung · Pre-Ramadan</h3>
+            <p>Setting the season — anticipation as the lead-in to the Ramadan campaign suite.</p>
+          </div>
+        </div>
+        <div class="case">
+          <video class="case-bg" src="videos/samsung-eid.mp4" autoplay loop muted playsinline preload="metadata"></video>
+          <div class="case-info">
+            <h3>Samsung · Eid</h3>
+            <p>Closing the season with a celebration film — the Eid moment as a generative ensemble piece.</p>
+          </div>
+        </div>
+        <div class="case">
+          <video class="case-bg" src="videos/samsung-the-frame.mp4" autoplay loop muted playsinline preload="metadata"></video>
+          <div class="case-info">
+            <h3>Samsung · The Frame</h3>
+            <p>Ramadan edition for The Frame — turning ambient television into seasonal art.</p>
+          </div>
+        </div>
+        <div class="case">
+          <video class="case-bg" src="videos/samsung-flip.mp4" autoplay loop muted playsinline preload="metadata"></video>
+          <div class="case-info">
+            <h3>Samsung · Galaxy Z Flip</h3>
+            <p>Hero film for the Z Flip — folded form factor told through generative motion.</p>
+          </div>
+        </div>
+        <div class="case">
+          <video class="case-bg" src="videos/samsung-fold.mp4" autoplay loop muted playsinline preload="metadata"></video>
+          <div class="case-info">
+            <h3>Samsung · Galaxy Z Fold</h3>
+            <p>Hero film for the Z Fold — productivity unfolded in a single AI-native cut.</p>
+          </div>
+        </div>
+        <div class="case">
+          <video class="case-bg" src="videos/samsung-fold-smartswitch.mp4" autoplay loop muted playsinline preload="metadata"></video>
+          <div class="case-info">
+            <h3>Samsung · Z Fold · SmartSwitch</h3>
+            <p>Migrating into a foldable — the SmartSwitch story rendered for Ramadan.</p>
+          </div>
+        </div>
+        <div class="case">
+          <video class="case-bg" src="videos/samsung-watch.mp4" autoplay loop muted playsinline preload="metadata"></video>
+          <div class="case-info">
+            <h3>Samsung · Galaxy Watch</h3>
+            <p>Wrist-first storytelling for the Galaxy Watch — health and presence in fifteen seconds.</p>
+          </div>
+        </div>
+        <div class="case">
+          <video class="case-bg" src="videos/samsung-s95.mp4" autoplay loop muted playsinline preload="metadata"></video>
+          <div class="case-info">
+            <h3>Samsung · S95 OLED</h3>
+            <p>The flagship OLED told through aimilabs cinematography — color, contrast, and craft.</p>
+          </div>
+        </div>
+        <div class="case">
+          <video class="case-bg" src="videos/samsung-s95-upscale.mp4" autoplay loop muted playsinline preload="metadata"></video>
+          <div class="case-info">
+            <h3>Samsung · S95 · AI Upscale</h3>
+            <p>Demonstrating AI Upscaling on the S95 panel — from pixel to picture in motion.</p>
+          </div>
+        </div>
+        <div class="case">
+          <video class="case-bg" src="videos/samsung-washer-dryer.mp4" autoplay loop muted playsinline preload="metadata"></video>
+          <div class="case-info">
+            <h3>Samsung · Bespoke AI</h3>
+            <p>Washer + Dryer film for the Bespoke AI line — chores reframed as choreography.</p>
           </div>
         </div>
       </div>
-      <button class="case-arrow" type="button" aria-label="Open case" data-action="open">→</button>
       <button class="case-nav prev" type="button" aria-label="Previous case" data-action="prev">‹</button>
       <button class="case-nav next" type="button" aria-label="Next case" data-action="next">›</button>
     </div>
@@ -1027,6 +1095,8 @@
       <button type="button" class="is-active" data-go="0"></button>
       <button type="button" data-go="1"></button>
       <button type="button" data-go="2"></button>
+      <button type="button" data-go="3"></button>
+      <button type="button" data-go="4"></button>
     </div>
   </div>
 </section>
@@ -1084,29 +1154,47 @@
       });
     });
 
-    // STUDIO carousel
+    // STUDIO carousel — slides one case at a time, 3 visible on desktop, 1 on mobile
     var stage = document.querySelector('.case-stage');
     if (stage) {
       var track = stage.querySelector('.case-track');
       var slides = stage.querySelectorAll('.case');
       var dots = document.querySelectorAll('.case-dots button');
+      function visibleCount() {
+        return window.matchMedia('(max-width: 820px)').matches ? 1 : 3;
+      }
+      function maxIdx() {
+        return Math.max(0, slides.length - visibleCount());
+      }
       var idx = 0;
       function go(i) {
-        idx = (i + slides.length) % slides.length;
-        track.style.transform = 'translateX(' + (-idx * 100) + '%)';
+        var max = maxIdx();
+        if (i < 0) i = max;
+        else if (i > max) i = 0;
+        idx = i;
+        var firstCase = slides[0];
+        var step = firstCase.getBoundingClientRect().width + 20; // includes gap
+        track.style.transform = 'translateX(' + (-idx * step) + 'px)';
         stage.dataset.current = idx;
-        dots.forEach(function(d, di) { d.classList.toggle('is-active', di === idx); });
+        var dotCount = dots.length;
+        var activeDot = max === 0 ? 0 : Math.round((idx / max) * (dotCount - 1));
+        dots.forEach(function(d, di) { d.classList.toggle('is-active', di === activeDot); });
       }
       stage.querySelectorAll('[data-action]').forEach(function(btn) {
         btn.addEventListener('click', function() {
           var a = btn.dataset.action;
           if (a === 'prev') go(idx - 1);
-          else if (a === 'next' || a === 'open') go(idx + 1);
+          else if (a === 'next') go(idx + 1);
         });
       });
       dots.forEach(function(d, di) {
-        d.addEventListener('click', function() { go(di); });
+        d.addEventListener('click', function() {
+          var max = maxIdx();
+          var target = Math.round((di / (dots.length - 1)) * max);
+          go(target);
+        });
       });
+      window.addEventListener('resize', function() { go(idx); });
     }
   })();
 </script>
